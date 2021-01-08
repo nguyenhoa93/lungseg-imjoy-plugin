@@ -1,0 +1,61 @@
+<docs lang="markdown">
+    [# Lung segmentation with [lungmask](https://github.com/JoHof/lungmask) moodel]
+    </docs>
+    
+    <config lang="json">
+    {
+      "name": "Lung-Segmentation",
+      "type": "window",
+      "tags": [],
+      "ui": "",
+      "version": "0.1.0",
+      "cover": "",
+      "description": "[Lung segmentation with lungmask model: https://github.com/JoHof/lungmask]",
+      "icon": "extension",
+      "inputs": null,
+      "outputs": null,
+      "api_version": "0.1.8",
+      "env": "",
+      "permissions": [],
+      "requirements": [
+            "https://cdn.jsdelivr.net/npm/apexcharts",
+            "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs",
+            "https://cdn.jsdelivr.net/npm/simpleheat@0.4.0/simpleheat.min.js",
+            "https://cdn.jsdelivr.net/gh/photopea/UTIF.js@4f1b10cb09e244cfd4f9631245d2231537148be7/UTIF.js"
+        ],
+      "dependencies": [],
+      "defaults": {"w": 20, "h": 10}
+    }
+    </config>
+    
+    <script lang="javascript">
+    const _available_models = {
+      'lungmask_R231': {url: 'https://raw.githubusercontent.com/nguyenhoa93/lungseg-imjoy-plugin/master/models/lungmaskjs/model.json', name: 'lungmask-R231', base_size: 64, inputs: [{name: 'input', shape: [64, 64, 1]}], outputs: [{name: 'output', shape: [64,64,1]}]},
+    }
+    class ImJoyPlugin {
+      async setup() {
+        api.log('initialized')
+        api.log("Tensorflow.js backend: " + tf.getBackend())
+        const model = await tf.loadGraphModel(_available_models["lungmask_R231"].url)
+        api.log("Loaded")
+      }
+    
+      async run(ctx) {
+    
+      }
+    }
+    
+    api.export(new ImJoyPlugin())
+    </script>
+    
+    <window lang="html">
+      <div>
+        <p>
+        Hello World
+        </p>
+      </div>
+    </window>
+    
+    <style lang="css">
+    
+    </style>
